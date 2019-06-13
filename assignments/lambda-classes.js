@@ -2,7 +2,7 @@
 
 class Person {
     constructor(personStats) {
-        this.name = `${personStats.first_name} ${personStats.lastname}`;
+        this.name = personStats.first_name;
         this.age = personStats.age;
         this.location = personStats.location;
     }
@@ -38,8 +38,8 @@ class Student extends Person {
         this.favSubjects = studentStats.favSubjects;
     }
 
-    listsSubjects(subjects) {
-        console.log(`${this.name}'s favorite subjects are ${subjects[0]}, ${subjects[1]}, and ${subjects[2]}.`)
+    listsSubjects() {
+        console.log(`${this.name}'s favorite subjects are ${this.favSubjects[0]}, ${this.favSubjects[1]}, and ${this.favSubjects[2]}.`)
     }
 
     prAssignment(subject) {
@@ -67,11 +67,54 @@ class ProjectManager extends Person {
     }
 }
 
+const rakel = new Instructor({
+    "id": 1,
+    "first_name": "Rakel",
+    "last_name": "Millwall",
+    "location": "Danzi",
+    "age": 78,
+    "favLanguage": "CSS",
+    "specialty": "quam sollicitudin vitae",
+    "catchphrase": "Aenean auctor gravida sem."
+})
+
+const garold = new Student({
+    "id": 1,
+    "first_name": "Garold",
+    "last_name": "Korf",
+    "location": "Bailadores",
+    "age": 84,
+    "previousBackground": "Assistant Media Planner",
+    "className": "ART 216",
+    "favSubjects": ['Html', 'CSS', 'JavaScript']
+})
+
+const brooke = new ProjectManager ({
+    "id": 1,
+    "first_name": "Brooke",
+    "last_name": "Kochl",
+    "location": "Älmhult",
+    "age": 20,
+    "gradClassName": "WEB 18",
+    "favInstructor": "Annabelle"
+  })
+
+// Instructor tests
+console.log(rakel);
+console.log(rakel.grade(garold, "math"));
+console.log(rakel.demo("Calculus II"));
 
 
+// Student tests
+console.log(garold);
+console.log(garold.listsSubjects());
+console.log(garold.prAssignment("Javascript IV"));
+console.log(garold.sprintChallenge("Underwater Basket Weaving"));
 
-
-
+// PM tests
+console.log(brooke);
+console.log(brooke.standUp("web21_brooke_kochl"));
+console.log(brooke.debugsCode(garold, "Underwater Basket Weaving"));
 
 
 
