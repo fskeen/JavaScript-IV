@@ -245,8 +245,6 @@ console.log(ashel.evaluate(garold));
 console.log("garold.grade property value: ", garold.grade);
 console.log(garold.graduate());
 
-
-
 const instructors = [{
     "id": 1,
     "first_name": "Rakel",
@@ -306,6 +304,7 @@ const students = [{
   }]
 
 const pms = [{
+
     "id": 1,
     "first_name": "Brooke",
     "last_name": "Kochl",
