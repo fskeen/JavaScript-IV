@@ -7,34 +7,19 @@ Prototype Refactor
 2. Your goal is to refactor all of this code to use ES6 Classes. The console.log() statements should still return what is expected of them.
 
 */
-/*
-  Object oriented design is commonly used in video games.  For this part of the assignment you will be implementing several constructor functions with their correct inheritance hierarchy.
 
-  In this file you will be creating three constructor functions: GameObject, CharacterStats, Humanoid.  
 
-  At the bottom of this file are 3 objects that all end up inheriting from Humanoid.  Use the objects at the bottom of the page to test your constructor functions.
-  
-  Each constructor function has unique properties and methods that are defined in their block comments below:
-*/
-  
-/*
-  === GameObject ===
-  * createdAt
-  * name
-  * dimensions (These represent the character's size in the video game)
-  * destroy() // prototype method that returns: `${this.name} was removed from the game.`
-*/
+class GameObject {
+    constructor(character) {
+        this.createdAt = character.createdAt;
+        this.name = character.name;
+        this.dimensions = character.dimensions;   
+    }
 
-function GameObject (character) {
-    this.createdAt = character.createdAt;
-    this.name = character.name;
-    this.dimensions = character.dimensions;
-  }
-  
-  GameObject.prototype.destroy = function () {
+    destroy() {
     return `${this.name} was removed from the game.`
+    }
   }
-  
   
   /*
     === CharacterStats ===
@@ -43,19 +28,16 @@ function GameObject (character) {
     * should inherit destroy() from GameObject's prototype
   */
   
-  function CharacterStats (character) {
-    this.healthPoints = character.healthPoints;
-    GameObject.call(this, character);
+  class CharacterStats extends GameObject {
+    constructor(character) {
+        super(character);
+        this.healthPoints = character.healthPoints;
+    }
+
+    takeDamage() {
+        return `${this.name} took damage!`;
+    };
   }
-  
-  CharacterStats.prototype = Object.create(GameObject.prototype);
-  
-  CharacterStats.prototype.takeDamage = function () {
-    return `${this.name} took damage!`;
-  };
-  
-  
-  
   
   /*
     === Humanoid (Having an appearance or character resembling that of a human.) ===
@@ -67,66 +49,58 @@ function GameObject (character) {
     * should inherit takeDamage() from CharacterStats
   */
   
-  function Humanoid (character) {
-    this.team = character.team;
-    this.weapons = character.weapons;
-    this.language = character.language;
-    CharacterStats.call(this, character);
+  class Humanoid extends CharacterStats {
+    constructor(character) {
+        super(character);
+        this.team = character.team;
+        this.weapons = character.weapons;
+        this.language = character.language;
+    }
+
+    greet() {
+        return `${this.name} offers a greeting in ${this.language}.`
+    }
   }
-  
-  Humanoid.prototype = Object.create(CharacterStats.prototype);
-  
-  Humanoid.prototype.greet = function () {
-    return `${this.name} offers a greeting in ${this.language}.`
-  }
-  
-  
+    
   /*
     * Inheritance chain: GameObject -> CharacterStats -> Humanoid
     * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
     * Instances of CharacterStats should have all of the same properties as GameObject.
   */
   
-  
   //VILLAIN ------------------------
   
-  function Villain (character) {
-    Humanoid.call(this, character)
-  }
-  
-  Villain.prototype = Object.create(Humanoid.prototype);
-  
-  Villain.prototype.attack = function(target){
-  
-    if (target.healthPoints > 3) {
-      target.healthPoints -= 3;
-      return `${this.name} attacks ${target.name} with ${this.weapons}! ${target.name} has ${[target.healthPoints]} health points.`;
-    } else {
-      return `${this.name} attacks ${target.name} with ${this.weapons}! ${target.name} was DESTROYED.` ;
+class Villain extends Humanoid {
+    constructor(character) {
+          super(character);
+        this.side = character.side;
     }
-  };
-  
-  
-  
-  
-  //HERO -----------------------
-  
-  function Hero (character) {
-    Humanoid.call(this, character)
+
+    attack (target){
+        if (target.healthPoints > 3) {
+            target.healthPoints -= 3;
+            return `${this.name} attacks ${target.name} with ${this.weapons}! ${target.name} has ${[target.healthPoints]} health points.`;
+        } else {
+            return `${this.name} attacks ${target.name} with ${this.weapons}! ${target.name} was DESTROYED.` ;
+        }
+    };
   }
-  
-  Hero.prototype = Object.create(Humanoid.prototype);
-  
-  Hero.prototype.attack = function(target){
-  
-    if (target.healthPoints > 4) {
-      target.healthPoints -= 4;
-      return `${this.name} attacks ${target.name} with ${this.weapons}! ${target.name} has ${[target.healthPoints]} health points.`;
-    } else {
-      return `${this.name} attacks ${target.name} with ${this.weapons}! ${target.name} was DESTROYED.` ;
+
+class Hero extends Humanoid {
+    constructor(character) {
+          super(character);
+        this.side = character.side;
     }
-  };
-  
+
+    attack (target){
+        if (target.healthPoints > 4) {
+            target.healthPoints -= 4;
+            return `${this.name} attacks ${target.name} with ${this.weapons}! ${target.name} has ${[target.healthPoints]} health points.`;
+        } else {
+            return `${this.name} attacks ${target.name} with ${this.weapons}! ${target.name} was DESTROYED.` ;
+        }
+    };
+  }
   
   
     // Stretch task: 
