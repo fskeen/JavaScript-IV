@@ -36,15 +36,20 @@ class Instructor extends Person {
         console.log(`${student.name}'s new grade: ${newGrade}`)
 
         if (newGrade > student.grade) {
-            return console.log(`${this.name} evaluates ${student.name}'s work and adds ${newGrade - student.grade} points to their score.`);
+            console.log(`${this.name} evaluates ${student.name}'s work and adds ${newGrade - student.grade} points to their score.`);
+            return student.grade = newGrade;
+
         } else if (newGrade < student.grade) {
-            return console.log(`${this.name} evaluates ${student.name}'s work and deducts ${student.grade - newGrade} points from their score.`);
+            console.log(`${this.name} evaluates ${student.name}'s work and deducts ${student.grade - newGrade} points from their score.`);
+            return student.grade = newGrade;
         } else {
-            return console.log(`${this.name} evaluates ${student.name}'s work and thinks the existing grade is sufficient.`);
+            console.log(`${this.name} evaluates ${student.name}'s work and thinks the existing grade is sufficient.`);
+            return student.grade = newGrade;
         };
         
     }
 };
+
 
 class Student extends Person {
     constructor(studentStats) {
@@ -52,7 +57,7 @@ class Student extends Person {
         this.previousBackground = studentStats.previousBackground;
         this.className = studentStats.className;
         this.favSubjects = studentStats.favSubjects;
-        this.grade = Math.floor(Math.random() * 101);
+        this.grade = Math.floor(Math.random() * 101 + 10); // this allows for grades over 100% to account for extra credit
     }
 
     listsSubjects() {
@@ -66,7 +71,16 @@ class Student extends Person {
     sprintChallenge(subject) {
         console.log(`${this.name} has begun the Sprint Challenge on ${subject}.`);
     }
+
+    graduate() {
+        if (this.grade >= 70) {
+            return console.log(`${this.name} has passed the course and graduated with a grade of ${this.grade}%!`)
+        } else {
+            return console.log (`With a grade of ${this.grade}%, ${this.name} did not pass the course and needs remedial classes.`)
+        }
+    }
 }
+
 
 class ProjectManager extends Instructor {
     constructor(pmStats) {
@@ -221,7 +235,15 @@ console.log(kris.standUp(`#web21`));
 console.log(ashel.debugsCode(rosalia, "Underwater Basket Weaving"));
 console.log(kris.grade(june, "React"));
 console.log(brooke.demo("Node.js"));
+
+// testing the evaluate and graduate functions together
+console.log(`
+
+---- .evaluate() + .graduate() TESTS ----
+`)
 console.log(ashel.evaluate(garold));
+console.log("garold.grade property value: ", garold.grade);
+console.log(garold.graduate());
 
 
 
