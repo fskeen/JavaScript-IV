@@ -13,5 +13,53 @@
 
 <body>
   <h1>JS IV - Check your work in the console!</h1>
+  <br>
+  <br>
+
+  <h4>Drawn by yours truly with some sweet, sweet JavasScript:</h4>
+
+  <canvas id="myCanvas" width="140" height="160"></canvas>
+
+  <script>
+    const c = document.getElementById("myCanvas");
+const ctx = c.getContext("2d");
+
+// lambda badge bg
+ctx.shadowBlur = 5;
+ctx.shadowColor = "#956";
+ctx.shadowOffsetX = 3;
+ctx.shadowOffsetY = 3;
+ctx.beginPath();
+ctx.moveTo(20, 20);
+ctx.lineTo(20, 100);
+ctx.lineTo(70, 140);
+ctx.lineTo(120, 100);
+ctx.lineTo(120, 20);
+ctx.closePath();
+ctx.strokeStyle = "#c13";
+ctx.stroke();
+ctx.fillStyle = "#c13";
+ctx.fill();
+ctx.shadowBlur = 10;
+ctx.shadowColor = "#fef";
+ctx.shadowOffsetX = 0;
+ctx.shadowOffsetY = 0;
+
+// lambda sign
+ctx.beginPath();
+ctx.moveTo(70, 45);
+ctx.lineTo(62, 45);
+ctx.lineTo(40, 85);
+ctx.lineTo(55, 85);
+ctx.lineTo(70, 58);
+ctx.lineTo(85, 85);
+ctx.lineTo(100, 85);
+ctx.lineTo(78, 45);
+ctx.closePath();
+ctx.fillStyle = "white";
+ctx.fill();
+ctx.strokeStyle = "white";
+ctx.stroke();
+  </script>
 </body>
 </html>
